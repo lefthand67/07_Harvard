@@ -1,15 +1,17 @@
-// use `clang -o draft draft.c -lcs50` to compile
+// Saves names to a csv file
 
 #include <stdio.h>
+#include <string.h>
 #include <cs50.h>
 
 int main(void)
 {
-    int i = get_int("i: ");
-    int j = get_int("j: ");
+    FILE *file = fopen("phonebook.csv", "a");
     
-    if (i == j)
-        printf("Same\n");
-    else
-        printf("Different\n");
+    char *name = get_string("Name: ");
+    char *number = get_string("Number: ");
+    
+    fprintf(file, "%s, %s\n", name, number);
+    
+    fclose(file);
 }
