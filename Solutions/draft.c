@@ -1,5 +1,3 @@
-// Saves names to a csv file
-
 #include <stdio.h>
 #include <string.h>
 #include <cs50.h>
