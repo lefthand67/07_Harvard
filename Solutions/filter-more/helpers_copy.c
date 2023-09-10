@@ -203,39 +203,20 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 		    	    greeny += image[i+h][j+w].rgbtGreen * gy;
 		    	    bluey += image[i+h][j+w].rgbtBlue * gy;
 
+					printf("%i ", gx);
 				}
+				printf("\n");
 		    }
 
-			int resultr = sqrt(redx*redx + redy*redy);
-			int resultg	= sqrt(greenx*greenx + greeny*greeny);
-			int resultb = sqrt(bluex*bluex + bluey*bluey);
 
-			if (resultr > 255)
-			{
-				resultr = 0;
-			}
-
-			if (resultg > 255)
-			{
-				resultg = 0;
-			}
-
-			if (resultb > 255)
-			{
-				resultb = 0;
-			}
-
-//			if (resultr > 255 || resultg > 255 || resultr > 255)
-//			{
-//				resultr = 255;
-//				resultg = 255;
-//				resultb = 255;
-//			}
-
-		    image[i][j].rgbtRed = resultr;
-		    image[i][j].rgbtGreen = resultg;
-		    image[i][j].rgbtBlue = resultb;
+		    image[i][j].rgbtRed = sqrt(redx*redx + redy*redy);
+		    image[i][j].rgbtGreen = sqrt(greenx*greenx + greeny*greeny);
+		    image[i][j].rgbtBlue = sqrt(bluex*bluex + bluey*bluey);
 			
+			if (image[i][j].rgbtRed > 255) 
+			{	
+				printf("%i ", image[i][j].rgbtRed);
+			}
 		}
 	}	
     return;
