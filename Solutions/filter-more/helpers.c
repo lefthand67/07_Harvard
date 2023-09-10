@@ -38,6 +38,9 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+
+	RGBTRIPLE tmp[height][width];
+
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -95,29 +98,42 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 				upper_n = 1;
 			}
 
+			
 			// main loop
 		    for (int h = m; h < upper_m; h++)
 		    {
-		    	for (int w = n; w < upper_n; w++)
+			   	for (int w = n; w < upper_n; w++)
 		    	{
-		    	new_red += image[i+h][j+w].rgbtRed;
-		    	new_green += image[i+h][j+w].rgbtGreen;
-		    	new_blue += image[i+h][j+w].rgbtBlue;
-		    	counter++;
+		    	    new_red += image[i+h][j+w].rgbtRed;
+		    	    new_green += image[i+h][j+w].rgbtGreen;
+		    	    new_blue += image[i+h][j+w].rgbtBlue;
+		    	    counter++;
 		    	}
 		    }
 
-		    image[i][j].rgbtRed = new_red / counter;	
-		    image[i][j].rgbtGreen = new_green / counter;	
-		    image[i][j].rgbtBlue = new_blue / counter;		
+		    tmp[i][j].rgbtRed = new_red / counter;	
+		    tmp[i][j].rgbtGreen = new_green / counter;	
+		    tmp[i][j].rgbtBlue = new_blue / counter;		
 		}
 	}
+	
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			image[i][j] = tmp[i][j];
+		}
+	}
+
 	return;
 }
 
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
+
+	RGBTRIPLE tmp[height][width];
+
     for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -212,31 +228,33 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 
 			if (resultr > 255)
 			{
-				resultr = 0;
+				resultr = 255;
 			}
 
 			if (resultg > 255)
 			{
-				resultg = 0;
+				resultg = 255;
 			}
 
 			if (resultb > 255)
 			{
-				resultb = 0;
+				resultb = 255;
 			}
 
-//			if (resultr > 255 || resultg > 255 || resultr > 255)
-//			{
-//				resultr = 255;
-//				resultg = 255;
-//				resultb = 255;
-//			}
+			tmp[i][j].rgbtRed = resultr;
+		    tmp[i][j].rgbtGreen = resultg;
+		    tmp[i][j].rgbtBlue = resultb;
 
-		    image[i][j].rgbtRed = resultr;
-		    image[i][j].rgbtGreen = resultg;
-		    image[i][j].rgbtBlue = resultb;
-			
 		}
 	}	
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			image[i][j] = tmp[i][j];
+		}
+	}
+
     return;
 }
