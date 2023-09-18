@@ -16,7 +16,6 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 			image[i][j].rgbtBlue = gray_color;
 		}
 	}
-    return;
 }
 
 // Reflect image horizontally
@@ -32,7 +31,6 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 			image[i][width-1 - j] = tmp;			
 		}
 	}
-    return;
 }
 
 // Blur image
@@ -124,14 +122,24 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 			image[i][j] = tmp[i][j];
 		}
 	}
-
-	return;
 }
 
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
 
+    // kernels
+ 	int Gx[3][3] = {
+ 		{-1, 0, 1},
+ 		{-2, 0, 2},
+ 		{-1, 0, 1}
+ 	};
+ 	int Gy[3][3] = {
+ 		{-1, -2, -1},
+ 		{0, 0, 0},
+ 		{1, 2, 1}
+ 	};
+ 
 	RGBTRIPLE tmp[height][width];
 
     for (int i = 0; i < height; i++)
@@ -145,17 +153,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 			int greeny = 0;
 			int bluey = 0;
 			
-			// kernels
-			int Gx[3][3] = {
-				{-1, 0, 1},
-				{-2, 0, 2},
-				{-1, 0, 1}
-			};
-			int Gy[3][3] = {
-				{-1, -2, -1},
-				{0, 0, 0},
-				{1, 2, 1}
-			};
 
 			// indexers for neighboring pixels 
 			int m = -1;
@@ -255,6 +252,4 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 			image[i][j] = tmp[i][j];
 		}
 	}
-
-    return;
 }
