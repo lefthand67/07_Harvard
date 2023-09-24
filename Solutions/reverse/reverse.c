@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
     // Read header
     // TODO #3
 	WAVHEADER buffer;
-//	int buffer[sizeof(WAVHEADER)];
 	fread(&buffer, sizeof(WAVHEADER), 1, input);
 
     // Use check_format to ensure WAV format
@@ -59,6 +58,9 @@ int main(int argc, char *argv[])
 	// find the size without header to count blocks
 	fseek(input, 0, SEEK_END);
 	int inp_file_size = ftell(input) - sizeof(WAVHEADER);
+
+
+
 	int blocks_qty = inp_file_size / block_size;
 	
 	// buffer for each block
@@ -78,6 +80,10 @@ int main(int argc, char *argv[])
 		// one block away
 		blocks_qty--;
 	}
+
+	fclose(input);
+	fclose(output);
+
 }
 
 int check_format(WAVHEADER header)
@@ -88,7 +94,8 @@ int check_format(WAVHEADER header)
 	{
 		int letter = check[i];
 		if (header.format[i] != letter)
-	{
+		{
+			printf("This is not a WAV file.")
 			return 4;
 		}	
 	}	
