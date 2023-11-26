@@ -1,12 +1,8 @@
-#include <cs50.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cs50.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	if ('a' == 'a')
-	{
-		printf("okay\n");
-	}
+	printf("%i\n", argc);
+	printf("%s\n", argv[0]);
 }
